@@ -4,11 +4,8 @@ import './App.css';
 
 class ContactList extends Component {
   render() {
-    const people = [
-      {name: 'armando'},
-      {name: 'Ana lidia'},
-      {name: 'lidia'}
-    ];
+    const people = this.props.contacts;
+    
     return <ol>
         {people.map((person, index) => (
           <li key={person.index}> {person.name} </li>
@@ -27,7 +24,17 @@ class App extends Component {
           <h1 className="App-title">My Contact List!</h1>
         </header>
         <p className="App-intro">
-          <ContactList />
+          <ContactList contacts={[
+            {name: 'armando'},
+            {name: 'Ana lidia'},
+            {name: 'lidia'}
+          ]}  />
+
+           <ContactList contacts={[
+            {name: 'Kaka'},
+            {name: 'Gibaia'},
+            {name: 'Holyudi'}
+          ]}  />
         </p>
       </div>
     );
