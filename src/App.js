@@ -26,11 +26,18 @@ class App extends Component {
     ]
   }
 
+  removeContact = (contact) => {
+    this.setState((currentStateList) => ({
+      //stay on the new list array only those who have diferent id 
+      contacts: currentStateList.contacts.filter( c => c.id !== contact.id )
+    }))
+  }
+
   render() {
 
     return (
       <div>
-        <ContactList list={this.state.contacts} />
+        <ContactList onDeleteContact={this.removeContact} list={this.state.contacts} />
       </div>
     );
   }
