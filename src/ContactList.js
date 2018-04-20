@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 //Functional Component - using because Just return a Render a UI
 function ContactList(props) {
@@ -23,5 +24,10 @@ function ContactList(props) {
     )
 }
 
+//typing the props of parent Component 
+ContactList.propTypes = {
+    list: PropTypes.array.isRequired,
+    onDeleteContact: PropTypes.func.isRequired
+}
 
 export default ContactList;
