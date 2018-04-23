@@ -20,6 +20,10 @@ class ContactList extends Component {
         })
     }
 
+    clearInputSearch = () => {
+        this.setState({ valueInputSearch: '' })
+    }
+
     render() {
         const { list, onDeleteContact } = this.props;
         const { valueInputSearch } = this.state;
@@ -39,7 +43,6 @@ class ContactList extends Component {
 
         return (
             <div className="list-contacts">
-                {JSON.stringify(this.state)}
                 <div className="list-contacts-top">
                     <input 
                         className="search-contacts"
@@ -49,6 +52,14 @@ class ContactList extends Component {
                         onChange={(event) => this.handleQuery(event.target.value)}
                     />
                 </div>
+
+                {showingContacts.length !== list.length && (
+                    <div className="showing-contacts">
+                        <span> Now showing {showingContacts.length} of {list.length} </span>
+                        <button onClick={this.clearInputSearch}> Show all </button>
+                    </div>                    
+                )}
+
                 <ol className="contact-list">
                     {showingContacts.map((contact) => {
                         return (<li key={contact.id} className='contact-list-item'>
