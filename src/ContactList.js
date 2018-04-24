@@ -12,7 +12,7 @@ class ContactList extends Component {
             valueInputSearch: ''
         }
 
-        // this.handleQuery = this.handleQuery.bind(this);
+        this.clearInputSearch = this.clearInputSearch.bind(this);
     }
 
     //typing the props of parent Component 
@@ -23,6 +23,10 @@ class ContactList extends Component {
 
     handleQuery(newQuery) {
         this.setState({ valueInputSearch: newQuery.trim() })
+    }
+
+    clearInputSearch() {
+        this.setState({ valueInputSearch: '' })
     }
 
     render() {
@@ -53,6 +57,13 @@ class ContactList extends Component {
                         onChange={(event) => this.handleQuery(event.target.value)}
                     />
                 </div>
+
+                {showingContacts.length !== list.length && (
+                    <div className="showing-contacts">
+                        <span> Now showing {showingContacts.length} of {list.length} </span>
+                        <button onClick={this.clearInputSearch}> Show all </button>
+                    </div>                    
+                )}
 
                 <ol className="contact-list">
                     {showingContacts.map((contact) => {
