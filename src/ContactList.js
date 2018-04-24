@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
 
-//Functional Component - using because Just return a Render a UI
 class ContactList extends Component {
 
     constructor(props) {
@@ -11,7 +12,7 @@ class ContactList extends Component {
             valueInputSearch: ''
         }
 
-        this.handleQuery = this.handleQuery.bind(this);
+        // this.handleQuery = this.handleQuery.bind(this);
     }
 
     //typing the props of parent Component 
@@ -25,23 +26,36 @@ class ContactList extends Component {
     }
 
     render() {
-        const listContacts = this.props.list;
+        const { list, onDeleteContact } = this.props;
+        const { valueInputSearch } = this.state;
+
+        let showingContacts;
+        //filterig contacts
+        if(valueInputSearch) {
+            const match = new RegExp(escapeRegExp(valueInputSearch), 'i');
+            showingContacts = list.filter( contact => match.test(contact.name) );
+        } else {
+            showingContacts = list;
+        }
+
+        //sorting contacts
+        showingContacts.sort(sortBy('name'));
+
         return (
 
             <div className="list-contacts">
-            {JSON.stringify(this.state.valueInputSearch)}
                 <div className="list-contacts-top">
                     <input 
                         className="search-contacts"
                         type="text"
                         placeholder="Search a contact"
-                        value={this.state.valueInputSearch}
+                        value={valueInputSearch}
                         onChange={(event) => this.handleQuery(event.target.value)}
                     />
                 </div>
 
                 <ol className="contact-list">
-                    {listContacts.map((contact) => {
+                    {showingContacts.map((contact) => {
                         return (<li key={contact.id} className='contact-list-item'>
                             <div className='contact-avatar' style={{
                                 backgroundImage: `url(${contact.avatarURL})`
@@ -50,7 +64,7 @@ class ContactList extends Component {
                                 <p>{contact.name}</p>
                                 <p>{contact.email}</p>
                             </div>
-                            <button onClick={() => this.props.onDeleteContact(contact)} className='contact-remove'> Remove </button>
+                            <button onClick={() => onDeleteContact(contact)} className='contact-remove'> Remove </button>
                         
                         </li>)
                     })}
