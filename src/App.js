@@ -1,33 +1,19 @@
 import React, { Component } from 'react';
 import ContactList from './ContactList';
+import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: [
-        {
-          "id": "ryan",
-          "name": "Ryan Florence",
-          "email": "ryan@reacttraining.com",
-          "avatarURL": "http://localhost:5001/ryan.jpg"
-        },
-        {
-          "id": "michael",
-          "name": "Michael Jackson",
-          "email": "michael@reacttraining.com",
-          "avatarURL": "http://localhost:5001/michael.jpg"
-        },
-        {
-          "id": "tyler",
-          "name": "Tyler McGinnis",
-          "email": "tyler@reacttraining.com",
-          "avatarURL": "http://localhost:5001/tyler.jpg"
-        }
-      ]
+      contacts: []
     }
 
     this.removeContact = this.removeContact.bind(this); //throw the reference of App class into the removeContact function to be used in this.setState()
+  }
+
+  componentDidMount() {
+    ContactsAPI.getAll().then( contacts => this.setState({ contacts })) // contacts == contacts: contacts(on this.state)
   }
 
   removeContact(contact) {
@@ -41,7 +27,9 @@ class App extends Component {
 
     return (
       <div>
-        <ContactList onDeleteContact={this.removeContact} list={this.state.contacts} />
+        <ContactList 
+          onDeleteContact={this.removeContact} 
+          list={this.state.contacts} />
       </div>
     );
   }
