@@ -19,6 +19,8 @@ class App extends Component {
       //stay on the new list array only those who have diferent id 
       contacts: currentStateList.contacts.filter( c => c.id !== contact.id )
     }))
+
+    ContactsAPI.remove(contact);
   }
 
   render() {
