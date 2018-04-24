@@ -7,11 +7,7 @@ class ContactList extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {
-            valueInputSearch: ''
-        }
-
+        this.state = { valueInputSearch: '' }
         this.clearInputSearch = this.clearInputSearch.bind(this);
     }
 
@@ -46,7 +42,6 @@ class ContactList extends Component {
         showingContacts.sort(sortBy('name'));
 
         return (
-
             <div className="list-contacts">
                 <div className="list-contacts-top">
                     <input 
@@ -76,7 +71,6 @@ class ContactList extends Component {
                                 <p>{contact.email}</p>
                             </div>
                             <button onClick={() => onDeleteContact(contact)} className='contact-remove'> Remove </button>
-                        
                         </li>)
                     })}
                 </ol>
