@@ -25,7 +25,7 @@ class ContactList extends Component {
     }
 
     render() {
-        const { list, onDeleteContact } = this.props;
+        const { list, onDeleteContact, onNavigate } = this.props;
         const { valueInputSearch } = this.state;
         // const listContacts = this.props.list;
         // const stateValueInputSearch = this.state.valueInputSearch;
@@ -51,6 +51,10 @@ class ContactList extends Component {
                         value={valueInputSearch}
                         onChange={(event) => this.handleQuery(event.target.value)}
                     />
+                    <a href="#create"
+                        onClick={onNavigate}
+                        className="add-contact"
+                    >Add Contact</a>
                 </div>
 
                 {showingContacts.length !== list.length && (
